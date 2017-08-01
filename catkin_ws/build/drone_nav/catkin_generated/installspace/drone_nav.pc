@@ -1,0 +1,8 @@
+prefix=/home/arvogell/FiMATE/catkin_ws/install
+
+Name: drone_nav
+Description: Description of drone_nav
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/arvogell/FiMATE/catkin_ws/install/lib 
+Requires: 

@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/arvogell/FiMATE/catkin_ws/devel/setup.sh

@@ -1,0 +1,2 @@
+drone_nav
+-DCATKIN_DEVEL_PREFIX=/home/arvogell/FiMATE/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/arvogell/FiMATE/catkin_ws/install -G Unix Makefiles
