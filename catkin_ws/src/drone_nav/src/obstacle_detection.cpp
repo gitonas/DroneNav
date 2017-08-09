@@ -6,8 +6,7 @@
 #include <tf/LinearMath/Vector3.h>
 
 void poseCallback(const nav_msgs::Odometry::ConstPtr & msg)
-{
-  Vector3 pos;
+{ 
   pos[0] = msg->pose.pose.position.x;
   pos[1] = msg->pose.pose.position.y;
   pos[2] = msg->pose.pose.position.z;
@@ -22,8 +21,14 @@ int main(int argc, char ** argv)
    * * [In] Drone pose
    * * [Out] Depth image
   */
+  public Vector3 pos;
+
   ros::init(argc, argv, "pose_listener");
-  ros::NodeHandle hsub;
+  
+  ros::NodeHandle hpose;
+  ros::Subscriber sub = hpose.subscribe("pose", 10, poseCallback)
+  
+  ros::NodeHandle h;
   ros::Subscriber sub = hsub.subscribe("pose", 10, poseCallback)
   
 

@@ -11,6 +11,10 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  message_generation
+  PCL 1.3
+  common
+  io
 )
 
 ## System dependencies are found with CMake's conventions
@@ -54,11 +58,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  srv/IsLineBlocked.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -118,7 +121,13 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
+  $PCL INCLUDE DIRS
 )
+
+link_directories(
+  $PCL_LIBRARY_DIRS
+)
+
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -133,7 +142,10 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/drone_nav_node.cpp)
+ add_executable(
+   #${PROJECT_NAME}_node src/drone_nav_node.cpp
+   pcd_write_test pcd_write.cpp
+)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -146,9 +158,17 @@ include_directories(
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(${PROJECT_NAME}_node
+target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
-# )
+  pcd_write_test
+  $PCL_COMMON_LIBRARIES
+  $PCL_IO_LIBRARIES
+)
+
+add_definitions(
+  $PCL_DEFINITIONS
+)
+
 
 #############
 ## Install ##

@@ -18,6 +18,7 @@ int main(int argc, char ** argv)
    * Read incoming depth images translate them to PointClouds
    * [In] Depth image
    * [Out] Obstacle PointCloud
+   * [Service] Check clear line of sight.
    * Note: Possibly use depth_image_proc nodelet to transform depth image to point cloud
   */
   pcl::PointCloud<pcl::PointXYZ> obst_cloud;
