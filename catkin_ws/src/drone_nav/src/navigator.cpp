@@ -10,15 +10,45 @@
 using namespace Eigen;
 using namespace std;
 
-int main(int argc, char ** argv)
+class treeRRT {
+    void add_edge(int,int);
+  public:
+    int noNodes, noEdges;
+    vector<Vector3f> nodes;
+    vector<int[2]> edges;
+    void add_node(Vector3f);
+    int get_noNodes();
+    int get_noEdges();
+    bool connect_to(treeRRT);
+    // missing: path_to object which is a list of index sequences
+    // could also be only the parent in the tree. actually that makes more sense
+}
+
+void treeRRT::add_node(Vector3f newNode)
 {
-  // Provide replanning service:
-  // * [In]: Obstacle PointCloud
-  // * [In]: Waypoint list
-  // * [Out]: Waypoint list
+  // Add a new node to the objects nodes vector and update noNodes
+}
 
-  PointCloud<PointXYZ>::Ptr cloud (new PointCloud<PointXYZ>);
+int treeRRT::get_noNodes()
+{
+  return noNodes;
+}
 
+int treeRRT::get_noEdges()
+{
+  return noEdges;
+}
+
+bool treeRRT::connect_to(treeRRT t)
+{
+  // Check if t is connectable to this.
+  // Either update this to incorporate t or return Path object instead of bool
+}
+
+void treeRRT::add_edge(int i, int j)
+{
+  // Add an edge between nodes i and j, by appending to the edges vector.
+  // Update path_to list
 }
 
 bool is_blocked(Vector3f<float> A, Vector3f<float> B)
@@ -83,5 +113,20 @@ bool is_blocked(Vector3f<float> A, Vector3f<float> B)
   return false;
 }
 
-  
+
+
+int main(int argc, char ** argv)
+{
+  /* Provide replanning service:
+   * - [In]: Obstacle PointCloud
+   * - [In]: Waypoint list
+   * - [Out]: Waypoint list
+   *
+   * Functions:
+   * - is_blocked(A,B): returns true if there is an obstacle between A and B
+   * - 
+   */
+
+  PointCloud<PointXYZ>::Ptr cloud (new PointCloud<PointXYZ>);
+
 }
