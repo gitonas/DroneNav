@@ -11,33 +11,47 @@ using namespace Eigen;
 using namespace std;
 
 class treeRRT {
-    void add_edge(int,int);
+    void add_edge(size_t,size_t);
   public:
     int noNodes, noEdges;
-    vector<Vector3f> nodes;
-    vector<int[2]> edges;
-    void add_node(Vector3f);
-    int get_noNodes();
-    int get_noEdges();
+    vector<Vector3d> nodes;
+    vector<pair<size_t,size_t>> edges;
+    void add_node(Vector3d);
     bool connect_to(treeRRT);
     // missing: path_to object which is a list of index sequences
     // could also be only the parent in the tree. actually that makes more sense
 }
 
-void treeRRT::add_node(Vector3f newNode)
+void treeRRT::add_node(Vector3d newNode)
 {
   // Add a new node to the objects nodes vector and update noNodes
+  size_t is_visible = -1;
+  for (size_t i = 0; i < noNodes; i++) {
+    if (!is_blocked(newNode,nodes[i])) {
+      is_visible = i;
+      break;
+    }
+  }
+  if (is_visible >= 0) {
+    nodes.push_back(newNode);
+    vector<size_t> visibleNodes;
+    pair<size_t, double> minEl;
+    minEl = make_pair(is_visible,(newNode - nodes[is_visible]).norm());
+    for (size_t i = is_visible; i < noNodes; i++) {
+      if (!is_blocked(nodes[i])) {
+        double dist = (newNode - nodes[i]).norm();
+        if (dist < minEl.second) {
+          minEl.first = i;
+          minEl.second = dist;
+        }
+      }
+    }
+    add_edge(minEl.first,(size_t)(++noNodes));
+    noEdges++;
+  }
+
 }
 
-int treeRRT::get_noNodes()
-{
-  return noNodes;
-}
-
-int treeRRT::get_noEdges()
-{
-  return noEdges;
-}
 
 bool treeRRT::connect_to(treeRRT t)
 {
